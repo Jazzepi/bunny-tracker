@@ -36,7 +36,7 @@
     "electron:mac": "npm run build:prod && electron-builder build --mac",
     "test": "npm run postinstall:web && ng test",
     "e2e": "mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
-    "e2e:full": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts"
+    "e2e:full": "npm run build:prod && mocha --timeout 1000 --require ts-node/register e2e/**/*.spec.ts"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.12.1",
@@ -61,6 +61,7 @@
     "@types/node": "8.9.4",
     "@types/webdriverio": "4.13.3",
     "chai": "^4.2.0",
+    "chai-as-promised": "latest",
     "chai-dom": "^1.8.2",
     "codelyzer": "4.5.0",
     "conventional-changelog-cli": "2.0.11",
@@ -77,6 +78,7 @@
     "karma-jasmine-html-reporter": "1.4.0",
     "karma-spec-reporter": "0.0.32",
     "mocha": "6.0.2",
+    "node-sass": "^4.14.1",
     "npm-run-all": "4.1.5",
     "rxjs": "6.4.0",
     "spectron": "5.0.0",
@@ -85,8 +87,7 @@
     "typescript": "3.2.4",
     "wait-on": "3.2.0",
     "webdriver-manager": "12.1.0",
-    "zone.js": "0.8.29",
-    "chai-as-promised": "latest"
+    "zone.js": "0.8.29"
   },
   "dependencies": {
     "@angular/animations": "^6.1.10",

@@ -1,8 +1,8 @@
-import { expect } from 'chai';
-import { SpectronClient } from 'spectron';
-import commonSetup from './common-setup';
+import { expect } from "chai";
+import { SpectronClient } from "spectron";
+import commonSetup from "./common-setup";
 
-describe('bunny-tracker application', function () {
+describe("bunny-tracker application", function () {
   commonSetup.apply(this);
 
   let client: SpectronClient;
@@ -11,38 +11,71 @@ describe('bunny-tracker application', function () {
     client = this.app.client;
   });
 
-  it('should display navigation bar', async function () {
+  it("should display navigation bar", async function () {
     const addBunnyText = await client.getText('[data-test="add-bunny-nav"]');
-    expect(addBunnyText).to.equal('Add Bunny');
-    const addBunnyIsEnabled = await client.isEnabled('[data-test="add-bunny-nav"]');
+    expect(addBunnyText).to.equal("Add Bunny");
+    const addBunnyIsEnabled = await client.isEnabled(
+      '[data-test="add-bunny-nav"]'
+    );
     expect(addBunnyIsEnabled).to.equal(true);
 
-    const searchBunniesText = await client.getText('[data-test="search-bunnies-nav"]');
-    expect(searchBunniesText).to.equal('Search Bunnies');
-    const searchBunniesIsEnabled = await client.isEnabled('[data-test="search-bunnies-nav"]');
+    const searchBunniesText = await client.getText(
+      '[data-test="search-bunnies-nav"]'
+    );
+    expect(searchBunniesText).to.equal("Search Bunnies");
+    const searchBunniesIsEnabled = await client.isEnabled(
+      '[data-test="search-bunnies-nav"]'
+    );
     expect(searchBunniesIsEnabled).to.equal(true);
   });
 
-  it('should show add bunny page', async function () {
+  it("should show add bunny page", async function () {
     await client.waitUntilWindowLoaded();
-    // await client.pause(10000);
-    // This doesn't work :(
-    await client.click('[data-test="add-bunny-nav"] span');
-    // await client.pause(1000);
-    // client.getHTML('[data-test="add-bunny-nav"] span').then((thing) => {
-    //   console.log(thing);
-    // });
-    // const addBunnyIsEnabled = await client.isEnabled('[data-test="add-bunny-nav"]');
-    // expect(addBunnyIsEnabled).to.equal(true);
-    //
-    // const searchBunniesIsEnabled = await client.isEnabled('[data-test="search-bunnies-nav"]');
-    // expect(searchBunniesIsEnabled).to.equal(false);
+
+    const result: any = await client.execute(() => {
+      let element: HTMLElement = document.querySelectorAll(
+        "body > app-root > app-navbar > mat-toolbar > mat-toolbar-row > button:nth-child(2)"
+      )[0] as HTMLElement;
+      element.click();
+      const name =
+        document.querySelectorAll("[formcontrolname='name']").length > 0
+          ? true
+          : false;
+      const surrenderName =
+        document.querySelectorAll("[formcontrolname='surrenderName']").length >
+        0
+          ? true
+          : false;
+      const gender =
+        document.querySelectorAll("[formcontrolname='gender']").length > 0
+          ? true
+          : false;
+      const intakeDate =
+        document.querySelectorAll("[formcontrolname='intakeDate']").length > 0
+          ? true
+          : false;
+      const description =
+        document.querySelectorAll("[formcontrolname='description']").length > 0
+          ? true
+          : false;
+      const spayDate =
+        document.querySelectorAll("[formcontrolname='spayDate']").length > 0
+          ? true
+          : false;
+
+      return { name, surrenderName, gender, intakeDate, description, spayDate };
+    });
+
+    await expect(result.value.name).to.equal(true);
+    await expect(result.value.surrenderName).to.equal(true);
+    await expect(result.value.gender).to.equal(true);
+    await expect(result.value.intakeDate).to.equal(true);
+    await expect(result.value.description).to.equal(true);
+    await expect(result.value.spayDate).to.equal(true);
   });
 
-
-  it('creates initial window', async function () {
+  it("creates initial window", async function () {
     const count = await client.getWindowCount();
-    expect(count).to.equal(1);
+    await expect(count).to.equal(1);
   });
-
 });
