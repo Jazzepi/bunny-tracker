@@ -29,6 +29,7 @@ export default function setup() {
     await this.app.start();
     const browser = this.app.client;
     await browser.waitUntilWindowLoaded();
+    this.app.webContents.setZoomFactor(1);
 
     browser.timeouts('script', 15000);
   });
