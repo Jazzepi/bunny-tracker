@@ -1,13 +1,13 @@
 <form [formGroup]="data" (ngSubmit)="onSubmit()">
-  <mat-form-field>
+  <mat-form-field data-test="name">
     <mat-label>Name</mat-label>
     <input required matInput size=30 type="text" formControlName="name"/>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="surrender-name">
     <mat-label>Surrender Name</mat-label>
     <input matInput type="text" formControlName="surrenderName"/>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="gender">
     <mat-label>Gender</mat-label>
     <mat-select #genderSelection required formControlName="gender">
       <mat-option *ngFor="let gender of allGenders" [value]="gender.value">
@@ -15,12 +15,12 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="intake-date">
     <input required matInput [matDatepicker]="intakePicker" [min]="generalMinDate" [max]="todaysDate" placeholder="Intake date" formControlName="intakeDate">
     <mat-datepicker-toggle matSuffix [for]="intakePicker"></mat-datepicker-toggle>
     <mat-datepicker #intakePicker></mat-datepicker>
   </mat-form-field>
-  <mat-form-field style="width:50% !important">
+  <mat-form-field style="width:50% !important" data-test="physical-description">
     <mat-label>Physical Description</mat-label>
     <textarea matInput
               formControlName="description"
@@ -29,13 +29,13 @@
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
   <div class="mat-form-field" style="margin-right:20px;">
-    <mat-form-field style="margin-right:0;">
+    <mat-form-field style="margin-right:0;" data-test="spay-date">
       <input matInput [matDatepicker]="spayPicker" [min]="generalMinDate" [max]="todaysDate" placeholder="{{genderSelection.selected?.value === 'Male' ? 'Neuter' : 'Spay'}} date" formControlName="spayDate">
       <mat-datepicker-toggle matSuffix [for]="spayPicker"></mat-datepicker-toggle>
       <mat-datepicker #spayPicker></mat-datepicker>
     </mat-form-field>
-    <div style="position: relative;" [hidden]="!spayPicker._selected">
-      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)">
+    <div style="position: relative;" [hidden]="!spayPicker._selected" >
+      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="spay-date-metadata">
         <mat-select required="{{spayPicker._selected ? true.toString() : false.toString()}}" formControlName="spayExplanation">
           <mat-option *ngFor="let explanation of allSpayExplanations" [value]="explanation.value">
             {{ explanation.value }}
@@ -60,7 +60,7 @@
       </mat-form-field>
     </div>
   </div>
-  <mat-form-field>
+  <mat-form-field data-test="rescueType">
     <mat-label>Rescue Type</mat-label>
     <mat-select required formControlName="rescueType">
       <mat-option *ngFor="let rescueType of allRescueTypes" [value]="rescueType.value">

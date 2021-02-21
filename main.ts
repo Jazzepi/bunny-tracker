@@ -374,9 +374,11 @@ VALUES ${bunny.bondedBunnyIds.reduce((previousValue, currentValue, index, ids) =
     height: size.height,
     webPreferences: {
       nodeIntegration: true,
-      zoomFactor: 2.0
+      zoomFactor: process.env.zoomFactor ? Number(process.env.zoomFactor) : 2.0
     },
   });
+
+  console.log(`Zoom factor env is [${process.env.zoomFactor}]`);
 
   if (serve) {
     require('electron-reload')(__dirname, {

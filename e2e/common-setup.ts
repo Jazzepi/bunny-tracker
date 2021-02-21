@@ -24,20 +24,24 @@ export default function setup() {
       // The following line tells spectron to look and use the main.js file
       // and the package.json located 1 level above.
       args: [path.join(__dirname, '..')],
-      webdriverOptions: {}
+      webdriverOptions: {},
+      env: {
+        zoomFactor: 1
+      }
     });
     await this.app.start();
     const browser = this.app.client;
     await browser.waitUntilWindowLoaded();
-    this.app.webContents.setZoomFactor(1);
-
     browser.timeouts('script', 15000);
   });
 
-  afterEach(function () {
+  afterEach(async function () {
     if (this.app && this.app.isRunning()) {
       if (this.currentTest.state === 'passed') {
         return this.app.stop();
+      } else {
+        console.error(await this.app.client.getRenderProcessLogs());
+        console.error(await this.app.client.getMainProcessLogs());
       }
     }
   });
