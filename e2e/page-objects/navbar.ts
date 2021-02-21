@@ -1,4 +1,14 @@
-import { Application, SpectronClient } from 'spectron';
+import { Application } from 'spectron';
+
+export class NavBarOption {
+
+  public static readonly ADD_BUNNY: NavBarOption = new NavBarOption('add-bunny-nav');
+  public static readonly SEARCH_BUNNY: NavBarOption = new NavBarOption('search-bunnies-nav');
+
+  constructor(public dataTestAttributeValue: string) {
+  }
+
+}
 
 export default class NavBar {
 
@@ -43,14 +53,3 @@ export default class NavBar {
     return this.app.client.$(`[data-test="${option.dataTestAttributeValue}"]`);
   }
 }
-
-export class NavBarOption {
-
-  public static readonly ADD_BUNNY: NavBarOption = new NavBarOption('add-bunny-nav');
-  public static readonly SEARCH_BUNNY: NavBarOption = new NavBarOption('search-bunnies-nav');
-
-  constructor(public dataTestAttributeValue: string) {
-  }
-
-}
-
