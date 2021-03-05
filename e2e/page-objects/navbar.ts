@@ -29,9 +29,8 @@ export default class NavBar {
   }
 
   async navigateTo(option: NavBarOption) {
-    this.button(NavBarOption.ADD_BUNNY).click();
+    this.button(option).click();
     await this.app.client.waitUntilWindowLoaded();
-    // this.app.client.waitForVisible('[data-test="name"] input');
   }
 
   private async internal(option: NavBarOption, shouldBeSelected: boolean) {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { DatabaseService } from '../../providers/DatabaseService';
 import Bunny from '../../entities/Bunny';
@@ -45,16 +45,26 @@ export class AddBunnyComponent implements OnInit {
     surrenderName: new FormControl(''),
     gender: new FormControl(''),
     intakeDate: new FormControl(moment().startOf('day')),
+    intakeReason: new FormControl(''),
     description: new FormControl(''),
     spayDate: new FormControl(),
+    spayExplanation: new FormControl({disabled: true, value: ''}),
     dateOfBirth: new FormControl(),
-    intakeReason: new FormControl(''),
-    rescueType: new FormControl(),
-    dateOfBirthExplanation: new FormControl(),
-    spayExplanation: new FormControl(),
+    dateOfBirthExplanation: new FormControl({disabled: true, value: ''}),
+    rescueType: new FormControl()
   });
 
   constructor(private databaseService: DatabaseService, private alertService: AlertService) {
+    this.data.controls.spayDate.valueChanges.subscribe(value => {
+      value !== null ? this.data.controls.spayExplanation.enable() : this.data.controls.spayExplanation.disable();
+      this.data.controls.spayExplanation.markAsTouched();
+    });
+
+    this.data.controls.dateOfBirth.valueChanges.subscribe(value => {
+      value !== null ? this.data.controls.dateOfBirthExplanation.enable() : this.data.controls.dateOfBirthExplanation.disable();
+      this.data.controls.dateOfBirthExplanation.markAsTouched();
+    });
+
     databaseService.getGenders().subscribe({
       next: (genders: GenderOption[]) => {
         this.allGenders = genders;

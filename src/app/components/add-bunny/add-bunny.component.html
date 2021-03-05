@@ -29,14 +29,15 @@
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
   <div class="mat-form-field" style="margin-right:20px;">
-    <mat-form-field style="margin-right:0;" data-test="spay-date">
+    <mat-form-field style="margin-right:0; padding-top: 10px;" data-test="spay-date">
       <input matInput [matDatepicker]="spayPicker" [min]="generalMinDate" [max]="todaysDate" placeholder="{{genderSelection.selected?.value === 'Male' ? 'Neuter' : 'Spay'}} date" formControlName="spayDate">
       <mat-datepicker-toggle matSuffix [for]="spayPicker"></mat-datepicker-toggle>
       <mat-datepicker #spayPicker></mat-datepicker>
     </mat-form-field>
     <div style="position: relative;" [hidden]="!spayPicker._selected" >
-      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="spay-date-metadata">
-        <mat-select required="{{spayPicker._selected ? true.toString() : false.toString()}}" formControlName="spayExplanation">
+      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="spay-date-explanation">
+        <mat-label>required</mat-label>
+        <mat-select required formControlName="spayExplanation">
           <mat-option *ngFor="let explanation of allSpayExplanations" [value]="explanation.value">
             {{ explanation.value }}
           </mat-option>
@@ -45,14 +46,15 @@
     </div>
   </div>
   <div class="mat-form-field" style="margin-right:20px;">
-    <mat-form-field style="margin-right:0;">
+    <mat-form-field style="margin-right:0; padding-top: 10px;" data-test="birth-date">
       <input matInput [matDatepicker]="dateOfBirthPicker" [min]="generalMinDate" [max]="todaysDate" placeholder="Date of birth" formControlName="dateOfBirth">
       <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
       <mat-datepicker #dateOfBirthPicker></mat-datepicker>
     </mat-form-field>
     <div style="position: relative;" [hidden]="!dateOfBirthPicker._selected">
-      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)">
-        <mat-select required="{{dateOfBirthPicker._selected ? true.toString() : false.toString()}}" formControlName="dateOfBirthExplanation">
+      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="date-of-birth-explanation">
+        <mat-label>required</mat-label>
+        <mat-select required formControlName="dateOfBirthExplanation">
           <mat-option *ngFor="let explanation of allDateOfBirthExplanations" [value]="explanation.value">
             {{ explanation.value }}
           </mat-option>
@@ -60,7 +62,7 @@
       </mat-form-field>
     </div>
   </div>
-  <mat-form-field data-test="rescueType">
+  <mat-form-field data-test="rescue-type">
     <mat-label>Rescue Type</mat-label>
     <mat-select required formControlName="rescueType">
       <mat-option *ngFor="let rescueType of allRescueTypes" [value]="rescueType.value">
@@ -68,7 +70,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field style="width:50% !important">
+  <mat-form-field style="width:50% !important" data-test="intake-reason">
     <mat-label>Intake Reason</mat-label>
     <textarea matInput
               formControlName="intakeReason"
@@ -77,6 +79,6 @@
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
   <div class="row" style="justify-content:center;margin-top:100px;">
-    <button mat-raised-button color="accent" type="submit" [disabled]="!data.valid">Add New Bunny</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!data.valid" data-test="add-new-bunny">Add New Bunny</button>
   </div>
 </form>

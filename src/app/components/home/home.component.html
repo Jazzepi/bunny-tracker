@@ -1,5 +1,5 @@
 <form>
-  <mat-form-field>
+  <mat-form-field data-test="search-bunny">
     <input type="text" placeholder="Find a bunny" aria-label="Number" matInput [formControl]="selectedBunnyAutoSuggest"
            [matAutocomplete]="auto">
     <mat-autocomplete [autoActiveFirstOption]="true" #auto="matAutocomplete" (optionSelected)="pickBunny($event)">
@@ -10,15 +10,15 @@
   </mat-form-field>
 </form>
 <form *ngIf="data" [formGroup]="data" (ngSubmit)="onSubmit()">
-  <mat-form-field>
+  <mat-form-field data-test="name">
     <mat-label>Name</mat-label>
     <input required matInput size=30 type="text" formControlName="name"/>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="surrender-name">
     <mat-label>Surrender Name</mat-label>
     <input matInput type="text" formControlName="surrenderName"/>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="gender">
     <mat-label>Gender</mat-label>
     <mat-select #genderSelection required formControlName="gender">
       <mat-option *ngFor="let gender of allGenders" [value]="gender.value">
@@ -26,12 +26,12 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="intake-date">
     <input required matInput [matDatepicker]="intakePicker" [min]="generalMinDate" [max]="todaysDate" placeholder="Intake date" formControlName="intakeDate">
     <mat-datepicker-toggle matSuffix [for]="intakePicker"></mat-datepicker-toggle>
     <mat-datepicker #intakePicker></mat-datepicker>
   </mat-form-field>
-  <mat-form-field style="width:50% !important">
+  <mat-form-field style="width:50% !important" data-test="physical-description">
     <mat-label>Physical Description</mat-label>
     <textarea matInput
               formControlName="description"
@@ -40,7 +40,7 @@
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
   <div class="mat-form-field" style="margin-right:20px;">
-    <mat-form-field style="margin-right:0;">
+    <mat-form-field style="margin-right:0; padding-top: 10px;" data-test="spay-date">
       <input matInput [matDatepicker]="spayPicker" [min]="generalMinDate" [max]="todaysDate" placeholder="{{genderSelection.selected?.value === 'Male' ? 'Neuter' : 'Spay'}} date" formControlName="spayDate">
       <mat-datepicker-toggle matSuffix [for]="spayPicker"></mat-datepicker-toggle>
       <mat-datepicker #spayPicker></mat-datepicker>
@@ -56,13 +56,13 @@
     </div>
   </div>
   <div class="mat-form-field" style="margin-right:20px;">
-    <mat-form-field style="margin-right:0;">
+    <mat-form-field style="margin-right:0; padding-top: 10px;" data-test="birth-date">
       <input matInput [matDatepicker]="dateOfBirthPicker" [min]="generalMinDate" [max]="todaysDate" placeholder="Date of birth" formControlName="dateOfBirth">
       <mat-datepicker-toggle matSuffix [for]="dateOfBirthPicker"></mat-datepicker-toggle>
       <mat-datepicker #dateOfBirthPicker></mat-datepicker>
     </mat-form-field>
     <div style="position: relative;" [hidden]="!dateOfBirthPicker._selected">
-      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)">
+      <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="date-of-birth-explanation">
         <mat-select required="{{dateOfBirthPicker._selected ? true.toString() : false.toString()}}" formControlName="dateOfBirthExplanation">
           <mat-option *ngFor="let explanation of allDateOfBirthExplanations" [value]="explanation.value">
             {{ explanation.value }}
@@ -71,7 +71,7 @@
       </mat-form-field>
     </div>
   </div>
-  <mat-form-field>
+  <mat-form-field data-test="rescue-type">
     <mat-label>Rescue Type</mat-label>
     <mat-select required formControlName="rescueType">
       <mat-option *ngFor="let rescueType of allRescueTypes" [value]="rescueType.value">
@@ -79,7 +79,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field style="width:50% !important">
+  <mat-form-field style="width:50% !important" data-test="intake-reason">
     <mat-label>Intake Reason</mat-label>
     <textarea matInput
               formControlName="intakeReason"
@@ -87,12 +87,12 @@
               cdkAutosizeMinRows="1"
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field data-test="passed-away-date">
     <input matInput [matDatepicker]="passedAwayDate" [min]="generalMinDate" [max]="todaysDate" placeholder="Passed away date" formControlName="passedAwayDate">
     <mat-datepicker-toggle matSuffix [for]="passedAwayDate"></mat-datepicker-toggle>
     <mat-datepicker #passedAwayDate></mat-datepicker>
   </mat-form-field>
-  <mat-form-field *ngIf="passedAwayDate._selected" style="width:50% !important">
+  <mat-form-field *ngIf="passedAwayDate._selected" style="width:50% !important" data-test="passed-away-reason">
     <mat-label>Passed Away Reason</mat-label>
     <textarea matInput
               formControlName="passedAwayReason"
@@ -101,7 +101,7 @@
               cdkAutosizeMaxRows="10"></textarea>
   </mat-form-field>
   <mat-select-autocomplete id="bunnyBonds"
-                           [appearance]="standard"
+                           [appearance]="'standard'"
                            [placeholder]="'Bunny Bonds'"
                            [selectPlaceholder]="'Bunny Bonds'"
                            [options]="bunniesAvailableToBondOptions"
@@ -116,6 +116,6 @@
                            (selectionChange)="onSelectedBondsChanged($event)">
   </mat-select-autocomplete>
   <div class="row" style="justify-content:center;margin-top:0px;">
-    <button mat-raised-button color="accent" type="submit" [disabled]="!(hasStateChanges() && data.valid)">Save Bunny Details</button>
+    <button mat-raised-button color="accent" type="submit" [disabled]="!(hasStateChanges() && data.valid)" data-test="save-bunny">Save Bunny Details</button>
   </div>
 </form>
