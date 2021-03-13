@@ -8,6 +8,30 @@ import SPAY_EXPLANATION from '../../src/app/entities/SpayExplanation';
 import GENDER from '../../src/app/entities/Gender';
 import RESCUE_TYPE from '../../src/app/entities/RescueType';
 
+export class SearchField {
+
+  constructor(private client: SpectronClient) {}
+
+  public async type(text: string) {
+    return await this.client.$('[data-test="search-bunny"] input').setValue(text);
+  }
+
+  public async getText() {
+    return await this.client.$('[data-test="search-bunny"] input').getValue();
+  }
+
+  public async getSuggestions(minimumCount: number): Promise<string> {
+    await this.client.waitUntil(async () => {
+      return (await this.client.$$('.mat-autocomplete-panel .mat-option-text')).length >= minimumCount;
+    });
+    return this.client.getText('.mat-autocomplete-panel .mat-option-text');
+  }
+
+  public suggestion(indexOfSuggestion: number) {
+    return this.client.$(`mat-option:nth-child(${indexOfSuggestion + 1})`);
+  }
+}
+
 export default class SearchBunnyPage {
 
 
@@ -167,29 +191,5 @@ export default class SearchBunnyPage {
 
   public saveBunnyButton(): Client<RawResult<Element>> & RawResult<Element> {
     return this.client.$('[data-test="save-bunny"]');
-  }
-}
-
-export class SearchField {
-
-  constructor(private client: SpectronClient) {}
-
-  public async type(text: string) {
-    return await this.client.$('[data-test="search-bunny"] input').setValue(text);
-  }
-
-  public async getText() {
-    return await this.client.$('[data-test="search-bunny"] input').getValue();
-  }
-
-  public async getSuggestions(minimumCount: number): Promise<string> {
-    await this.client.waitUntil(async () => {
-      return (await this.client.$$('.mat-autocomplete-panel .mat-option-text')).length >= minimumCount;
-    });
-    return this.client.getText('.mat-autocomplete-panel .mat-option-text');
-  }
-
-  public suggestion(indexOfSuggestion: number) {
-    return this.client.$(`mat-option:nth-child(${indexOfSuggestion + 1})`);
   }
 }
