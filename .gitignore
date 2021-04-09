@@ -4,6 +4,7 @@ node_modules
 *.iml
 out
 *.js.map
+*.js
 main.js
 release/
 dist/

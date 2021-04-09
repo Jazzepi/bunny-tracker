@@ -63,7 +63,8 @@
     </mat-form-field>
     <div style="position: relative;" [hidden]="!dateOfBirthPicker._selected">
       <mat-form-field style="position: absolute; margin-right:0; width:50%; transform: scale(.7) translate(165%, -220%)" data-test="date-of-birth-explanation">
-        <mat-select required="{{dateOfBirthPicker._selected ? true.toString() : false.toString()}}" formControlName="dateOfBirthExplanation">
+        <mat-label>required</mat-label>
+        <mat-select required formControlName="dateOfBirthExplanation">
           <mat-option *ngFor="let explanation of allDateOfBirthExplanations" [value]="explanation.value">
             {{ explanation.value }}
           </mat-option>

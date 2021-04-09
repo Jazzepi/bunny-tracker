@@ -1,3 +1,5 @@
+import * as log from 'electron-log';
+
 const Application = require('spectron').Application;
 const electronPath = require('electron'); // Require Electron from the binaries included in node_modules.
 const path = require('path');
@@ -33,6 +35,7 @@ export default function setup() {
     const browser = this.app.client;
     await browser.waitUntilWindowLoaded();
     browser.timeouts('script', 15000);
+    log.transports.console.level = 'error';
   });
 
   afterEach(async function () {

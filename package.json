@@ -35,8 +35,8 @@
     "electron:windows": "npm run build:prod && electron-builder build --windows",
     "electron:mac": "npm run build:prod && electron-builder build --mac",
     "test": "npm run postinstall:web && ng test",
-    "e2e": "mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
-    "e2e:full": "npm run build:prod && mocha --timeout 10000 --require ts-node/register e2e/**/*.spec.ts"
+    "e2e": "mocha --timeout 20000 --require ts-node/register e2e/**/*.spec.ts",
+    "e2e:full": "npm run build:prod && mocha --timeout 20000 --require ts-node/register e2e/**/*.spec.ts"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.12.1",
