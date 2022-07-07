@@ -105,7 +105,7 @@
     "electron-log": "^3.0.5",
     "lodash-es": "^4.17.15",
     "mat-select-autocomplete": "^1.2.5",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-electron": "^2.1.1",
     "rxjs": "^6.4.0",
     "sqlite": "^3.0.3",
