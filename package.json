@@ -39,7 +39,7 @@
     "e2e:full": "npm run build:prod && mocha --timeout 20000 --require ts-node/register e2e/**/*.spec.ts"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.12.1",
+    "@angular-devkit/build-angular": "15.0.0",
     "@angular/cli": "7.3.3",
     "@angular/common": "7.2.7",
     "@angular/compiler": "7.2.7",
